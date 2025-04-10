@@ -68,7 +68,7 @@ plugins {
 // }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.4.0'
+    
 }
 
 // Configure our javadoc to include an overview for our project, a
