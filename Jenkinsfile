@@ -1,37 +1,34 @@
 pipeline {
     agent any
-    
-    // Set up the environment so that Gradle uses the installed Java 17.
+
     environment {
-        // Update this JAVA_HOME path if your installation is located elsewhere.
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        // Use the output from `/usr/libexec/java_home` as your JAVA_HOME
+        JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home'
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
         
-        // Example: If you require an HTTP proxy for some tests (adjust or remove if not needed)
+        // Other environment variables if needed
         HTTP_PROXY = 'http://127.0.0.1:9888'
     }
     
     stages {
         stage('Checkout') {
             steps {
-                // Checks out the current repository as configured in Jenkins
                 checkout scm
             }
         }
         
         stage('Verify Java Version') {
             steps {
-                // Confirms that the correct Java version is used
                 sh 'java -version'
             }
         }
         
         stage('Build') {
             steps {
-                // Run your Gradle build; adjust tasks as needed.
                 sh './gradlew clean assemble'
             }
         }
+        
         
         stage('Unit Tests') {
             steps {
