@@ -6,9 +6,14 @@ pipeline {
     ORG_GRADLE_JAVA_INSTALLATIONS_AUTO_DOWNLOAD = 'false'
   }
 
+tools {
+  jdk 'jdk11'
+}
+
   stages {
     stage('Build') {
       steps {
+        sh 'java -version'
         sh './gradlew clean assemble'
       }
     }
