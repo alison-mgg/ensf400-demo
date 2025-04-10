@@ -1,24 +1,37 @@
-// This jenkinsfile is used to run CI/CD on my local (Windows) box, no VM's needed.
+// // This jenkinsfile is used to run CI/CD on my local (Windows) box, no VM's needed.
+
+// pipeline {
+
+//   agent any
+
+//    environment {
+//         // This is set so that the Python API tests will recognize it
+//         // and go through the Zap proxy waiting at 9888
+//         HTTP_PROXY = 'http://127.0.0.1:9888'
+//    }
 
 pipeline {
-
-  agent any
-
-   environment {
-        // This is set so that the Python API tests will recognize it
-        // and go through the Zap proxy waiting at 9888
-        HTTP_PROXY = 'http://127.0.0.1:9888'
-   }
-
-  stages {
-
-    // build the war file (the binary).  This is the only
-    // place that happens.
-    stage('Build') {
-      steps {
-        sh './gradlew clean assemble'
-      }
+    agent {
+        docker { image 'python:2-alpine' }
     }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
+                stash(name: 'compiled-results', includes: 'sources/*.py*') 
+            }
+        }
+    }
+}
+  // stages {
+
+  //   // build the war file (the binary).  This is the only
+  //   // place that happens.
+  //   stage('Build') {
+  //     steps {
+  //       sh './gradlew clean assemble'
+  //     }
+  //   }
 
     // run all the unit tests - these do not require anything else
     // to be running and most run very quickly.
