@@ -61,7 +61,10 @@ stage('Static Analysis') {
     script {
       catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         sh './gradlew sonarqube'
-        sleep 5
+      }
+
+      // Try to run quality gate check ONLY if sonar succeeded
+      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         sh './gradlew checkQualityGate'
       }
     }
