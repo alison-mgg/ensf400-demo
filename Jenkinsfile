@@ -18,7 +18,6 @@ pipeline {
       steps {
           // go to demo-master to find the gradle file
           dir('demo-master') {
-            sh 'chmod +x ./gradlew'
             sh './gradlew clean assemble'
           }
       }
