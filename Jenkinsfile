@@ -6,6 +6,10 @@ pipeline {
     ORG_GRADLE_JAVA_INSTALLATIONS_AUTO_DOWNLOAD = 'false'
   }
 
+options {
+  skipStagesAfterUnstable()
+}
+
 tools {
     jdk 'jdk11'
 }
@@ -54,10 +58,12 @@ tools {
 
 stage('Static Analysis') {
   steps {
-    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-      sh './gradlew sonarqube'
-      sleep 5
-      sh './gradlew checkQualityGate'
+    script {
+      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        sh './gradlew sonarqube'
+        sleep 5
+        sh './gradlew checkQualityGate'
+      }
     }
   }
 }
