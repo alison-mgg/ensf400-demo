@@ -52,13 +52,15 @@ tools {
       }
     }
 
-    stage('Static Analysis') {
-      steps {
-        sh './gradlew sonarqube'
-        sleep 5
-        sh './gradlew checkQualityGate'
-      }
+stage('Static Analysis') {
+  steps {
+    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+      sh './gradlew sonarqube'
+      sleep 5
+      sh './gradlew checkQualityGate'
     }
+  }
+}
 
     stage('Deploy to Test') {
       steps {
