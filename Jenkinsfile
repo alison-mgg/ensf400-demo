@@ -2,9 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Use the output from `/usr/libexec/java_home` as your JAVA_HOME
-        JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home'
-        PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
         
         // Other environment variables if needed
         HTTP_PROXY = 'http://127.0.0.1:9888'
