@@ -4,6 +4,7 @@ services:
     image: jenkins/jenkins:alpine
     ports:
       - "8080:8080"
+      - "9001:9000" 
     volumes:
       - jenkins_home:/var/jenkins_home
 volumes:
