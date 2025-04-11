@@ -6,6 +6,7 @@ pipeline {
         // Other environment variables if needed
         HTTP_PROXY = 'http://127.0.0.1:9888'
         SONAR_TOKEN = credentials('ENSF400-DEMO')
+        SONARQUBE_URL = 'http://sonarqube:9000'  
     }
     
     stages {
@@ -69,7 +70,7 @@ pipeline {
         
        stage('Static Analysis') {
     steps {
-        sh './gradlew sonarqube'
+         sh './gradlew sonarqube -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
         sleep 5
         sh './gradlew checkQualityGate'
     }
