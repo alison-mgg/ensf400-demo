@@ -27,20 +27,17 @@ pipeline {
         }
         
         
-        stage('Unit Tests') {
-  steps {
-    dir('demo-master') {
-      sh './gradlew test'
-      sh 'ls -l build/test-results/test/'
-    }
-  }
-  post {
-    always {
-      dir('demo-master') {
-        junit 'build/test-results/test/*.xml'
-      }
-    }
-  }
+       stage('Unit Tests') {
+   steps {
+       // no need to change directory, gradlew is in the root folder
+       sh './gradlew test'
+   }
+   post {
+     always {
+       // no need to change directory, gradlew is in the root folder
+       junit 'build/test-results/test/*.xml'
+     }
+   }
 }
 
         
