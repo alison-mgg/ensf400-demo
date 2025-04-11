@@ -15,13 +15,15 @@ pipeline {
     // build the war file (the binary).  This is the only
     // place that happens.
     stage('Build') {
-      steps {
-          // go to demo-master to find the gradle file
-          dir('demo-master') {
-            sh './gradlew clean assemble'
-          }
-      }
+  steps {
+    dir('demo-master') {
+      sh 'pwd'  // Print working directory
+      sh 'ls -l'  // List files in the directory
+      sh './gradlew clean assemble'
     }
+  }
+}
+
 
     // run all the unit tests - these do not require anything else
     // to be running and most run very quickly.
