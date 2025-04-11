@@ -70,7 +70,7 @@ pipeline {
         
        stage('Static Analysis') {
     steps {
-          sh "./gradlew sonarqube -Dsonar.login=$SONAR_TOKEN"
+         sh './gradlew sonarqube -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
         sleep 5
         sh './gradlew checkQualityGate'
     }
