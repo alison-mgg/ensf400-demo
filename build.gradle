@@ -77,7 +77,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     implementation group: 'me.gosimple', name: 'nbvcxz', version: '1.4.3'
-    testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.1.13'
+    testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.19.3'
     testImplementation 'io.cucumber:cucumber-java:5.7.0'
     testImplementation 'io.cucumber:cucumber-junit:5.7.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
