@@ -4,8 +4,35 @@ services:
     image: jenkins/jenkins:alpine
     ports:
       - "8080:8080"
-      - "9001:9000" 
+      - "50000:50000"  # This port allows Jenkins agents to communicate.
     volumes:
       - jenkins_home:/var/jenkins_home
+    networks:
+      - sonar-network  # Attach Jenkins to the custom network.
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9001:9000"  # Expose SonarQube's web interface on port 9001
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar  # Optional: if using an external database
+    networks:
+      - sonar-network  # Attach SonarQube to the same network as Jenkins.
+
+  # Optional: You can also add a PostgreSQL service if SonarQube requires it.
+  # db:
+  #   image: postgres:alpine
+  #   environment:
+  #     POSTGRES_USER: sonar
+  #     POSTGRES_PASSWORD: sonar
+  #     POSTGRES_DB: sonar
+  #   networks:
+  #     - sonar-network
+
+networks:
+  sonar-network:
+    driver: bridge
+
 volumes:
   jenkins_home:
