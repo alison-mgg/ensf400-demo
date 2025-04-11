@@ -179,7 +179,7 @@ sonarqube {
         property "sonar.java.binaries", "build/classes/java/main"
         property "sonar.junit.reportPaths", "build/test-results/test/,build/test-results/integrate"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/jacoco.xml"
-        property "sonar.host.url", "http://localhost:9001"
+        property "sonar.host.url", "http://host.docker.internal:9001"
         property "sonar.projectKey", "ENSF400-DEMO"
         property "sonar.projectName", "ENSF400-DEMO"
     }
