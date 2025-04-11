@@ -5,6 +5,7 @@ pipeline {
         
         // Other environment variables if needed
         HTTP_PROXY = 'http://127.0.0.1:9888'
+        SONAR_TOKEN = credentials('ENSF400-DEMO')
     }
     
     stages {
@@ -66,15 +67,14 @@ pipeline {
             }
         }
         
-        stage('Static Analysis') {
-            steps {
-                // Run static analysis with SonarQube.
-                sh './gradlew sonarqube'
-                // Pause briefly to let SonarQube finish (if needed).
-                sleep 5
-                sh './gradlew checkQualityGate'
-            }
-        }
+       stage('Static Analysis') {
+    steps {
+        sh './gradlew sonarqube'
+        sleep 5
+        sh './gradlew checkQualityGate'
+    }
+}
+
         
         stage('Deploy to Test') {
             steps {
