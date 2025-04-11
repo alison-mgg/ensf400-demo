@@ -341,7 +341,7 @@ task checkQualityGate() {
 // throws an exception if the quality gate fails.
 static void isQualityGateGood() {
     def sonarHost = "http://sonarqube:9000" // Use the correct hostname for Docker network
-    def projectKey = "400Demo" // Ensure this matches your SonarQube project key exactly
+    def projectKey = "ENSF400-DEMO" // Ensure this matches your SonarQube project key exactly
     def token = System.getenv("SONAR_TOKEN") // Optional: use Jenkins env var
 
     if (token == null || token.trim().isEmpty()) {
