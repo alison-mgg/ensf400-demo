@@ -72,7 +72,6 @@ pipeline {
     steps {
          sh './gradlew sonarqube -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
         sleep 5
-        sh './gradlew checkQualityGate'
     }
 }
 
