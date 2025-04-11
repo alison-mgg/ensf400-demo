@@ -28,17 +28,21 @@ pipeline {
         
         
         stage('Unit Tests') {
-            steps {
-                // Execute unit tests via Gradle.
-                sh './gradlew test'
-            }
-            post {
-                // Archive JUnit test results for reporting.
-                always {
-                    junit 'build/test-results/test/*.xml'
-                }
-            }
-        }
+  steps {
+    dir('demo-master') {
+      sh './gradlew test'
+      sh 'ls -l build/test-results/test/'
+    }
+  }
+  post {
+    always {
+      dir('demo-master') {
+        junit 'build/test-results/test/*.xml'
+      }
+    }
+  }
+}
+
         
         stage('Database Tests') {
             steps {
