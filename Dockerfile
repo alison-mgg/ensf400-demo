@@ -28,6 +28,10 @@ RUN pip install pipenv && pipenv install
 # Build the Gradle project and run the application
 RUN ./gradlew build
 
+
+RUN pip install pipenv
+
+
 # Expose the application port
 EXPOSE 8080
 
