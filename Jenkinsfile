@@ -77,18 +77,25 @@ pipeline {
 }
 
         
-        stage('Deploy to Test') {
-            steps {
-                // Deploy to a test environment using Gradle.
-                sh './gradlew deployToTestWindowsLocal'
-                // Install necessary Python dependencies via pipenv.
-                sh 'PIPENV_IGNORE_VIRTUALENVS=1 pipenv install'
-                // Wait for the deployed service to become available.
-                sh './gradlew waitForHeartBeat'
-                // Clear any previous Zap sessions.
-                sh 'curl http://zap/JSON/core/action/newSession -s --proxy localhost:9888'
-            }
-        }
+      stage('Deploy to Test') {
+    steps {
+        // Deploy to a test environment using Gradle.
+        sh './gradlew deployToTestWindowsLocal'
+
+        // Install pipenv (ensure pip is available)
+        sh 'pip install --user pipenv'
+
+        // Add pipenv path to PATH if needed
+        sh 'export PATH=$PATH:$HOME/.local/bin && PIPENV_IGNORE_VIRTUALENVS=1 pipenv install'
+
+        // Wait for the deployed service to become available.
+        sh './gradlew waitForHeartBeat'
+
+        // Clear any previous Zap sessions.
+        sh 'curl http://zap/JSON/core/action/newSession -s --proxy localhost:9888'
+    }
+}
+
         
         stage('API Tests') {
             steps {
